@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div id={{recipe.id}} class="diy-recipe card mb-3 " style="width: 950px;">
+        <div class="row no-gutters justify-content-center">
+            <div class="col-md-4 text-center my-4">
+                <img src="{{recipe.image_url}}" class="card-img mb-2" alt="No picture">               
+            </div>
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h4 class="card-title text-center mt-4 mb-1">{{recipe.name}}</h4>
+                    <div class="d-flex justify-content-around">                        
+                            <a href="{{url_for('list_diy_recipes')}}" class="btn btn-sm btn-outline-info">Back</a>  
+                            <a href="{{url_for('edit_diy_recipe', diy_recipe_id=recipe.id)}}" class="btn btn-sm btn-success">Edit</a>
+                    </div>                
+                    <hr>
+                    <p><b>Ingredients: </b> {{recipe.ingredients}}</p>
+                    <p><b>Desription: </b> {{recipe.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

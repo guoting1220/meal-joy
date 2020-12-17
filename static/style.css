@@ -1,0 +1,118 @@
+body {
+    background-color: #9FA160;
+    background-image: url("/static/images/bg.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right;
+    background-size:contain; 
+}
+
+
+
+.bgImage {
+    background-image: url("/static/images/food-blk.png");
+    background-color: #f7c225;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right; 
+    background-size:contain;
+}
+
+.navbar-brand {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+
+#welcome {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    position: absolute;
+    height: 70%;
+    left: 30%;
+    top: 52%;
+    transform: translate(-50%, -50%);      
+    border-radius: 20px;
+    /* box-shadow: 5px 10px; */
+    background-image: url("/static/images/logo.png");
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    background-position: 50% 90%;
+    background-size: 50%;
+    opacity: 0.7;
+    background-color: #9D9986;
+    /* border: 2px solid #9D9986; */
+}
+
+/* #planImg {
+    width:200px;
+    position: fixed;    
+    left: 6%;
+    bottom: 6%;
+} */
+
+
+#filters {
+    background-color: white;
+    border-radius: 5px;
+}
+
+#itemNum {
+    background-color: white;
+    border-radius: 5px;
+}
+
+.fa-heart {
+    size: 200px;
+    color: red;
+}
+
+.vedioLink {
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+#recTitle {
+  color: #424446;
+}
+
+/* @media screen and (max-width: 576px) {
+  body {
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  body {
+    max-width: 900px;
+    margin: 8px auto;
+  }
+} */
+
+.trash {
+    background-color: transparent;
+    border: none;
+}
+
+
+#loader {
+  display: none;
+  margin: 10% auto;
+  border: 15px dotted white;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3 class="text-center">My Own Recipes</h3>
+
+<div class="text-center my-3">
+    <a href="{{url_for('add_diy_recipe')}}" class="btn btn-info">Add New Recipe</a>
+</div>
+
+<div id="diy-recipes" class="row justify-content-center">
+    <div class="col-6">
+        <!-- <ul> -->
+            {% for recipe in recipes %}
+            <div class="my-1"> 
+                <form action="{{url_for('delete_diy_recipe', diy_recipe_id=recipe.id)}}" method="POST" class="d-inline">
+                    <button class="btn btn-sm btn-secondary trash"><i class="far fa-trash-alt"></i></button>
+                </form>
+                <a href="{{url_for('show_recipe_detail',diy_recipe_id=recipe.id)}}">
+                    {{recipe.name}}
+                </a>
+            </div>
+            {% endfor %}
+        <!-- </ul> -->
+    </div>
+</div>
+
+
+{% endblock %}

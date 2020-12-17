@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if not g.user %}
+<div id="welcome" class="justify-content-center">
+    <div class="text-center p-5">
+        <h2 class="display-5">Explore The Healthy Recipes</h2>
+        <h2 class="display-5">and</h2>
+        <h2 class="display-5">Make Your Meal Plan</h2>
+        <hr class="my-4">
+
+        <div id="welcomeBtn" class="justify-content-center mt-5">
+            <div class="welcomeBtn">
+                <a href="/signup" class="btn btn-light rounded mt-5 mb-3">
+                    <i class="fas fa-user-plus mr-2"></i>Sign up
+                </a>
+            </div>
+            <div class="welcomeBtn">
+                <a href="/login" class="btn btn-light rounded">
+                    <i class="fas fa-sign-in-alt mr-3"></i>Log in
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endif %}
+
+{% if g.user %}
+<!-- homepage -->
+<div id="home" class="row mt-5">
+    <div class="col-6 offset-1 align-self-center">
+        <div class="jumbotron  text-center">
+            <h1 class="display-4">Welcome!</h1>
+            <p class="lead">Build your weekly meal plan and make the life easier!</p>
+            <hr class="my-4">
+            <p>Explore the recipes ...</p>
+            <a class="btn  btn-lg" href="#" role="button"><img id="home-search" src="/static/images/frame.png" width="100px" alt=""></a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- category list----------------------------------->
+<div id="cat-list" class="row justify-content-center"></div>
+
+<!-- recipe area---------------------------------------- -->
+<div id="recipesArea" class="d-none">
+    <div id="recipesSearchArea">
+        <div>
+            <h3 class="text-center">RECIPES</h3>
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    <form id="searchForm" action="">
+                        <div class="input-group mb-3">
+                            <input type="text" name="rSearch" id="rSearch" class="form-control text-center" placeholder="Key word of the recipe">
+                            <div class="input-group-append">
+                                <button class="btn btn-info" type="button">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="filterArea">
+            <button id="filterByBtn" class="btn btn-sm btn-outline-secondary">Filter By <i class="fas fa-caret-down"></i></button>
+
+            <div id="filters" class="my-2 p-2 d-none">
+                <form id="filterForm" action="">
+                    <div class="row">
+                        <div class="col-1"><b>Category:</b></div>
+                        <div class="col-11">
+                            <div id="catFilter" class="form-inline">
+                                <!-- <div class="form-check mr-3">
+                                    <input class="form-check-input" type="checkbox" id="">
+                                    <label class="form-check-label" for="">beef</label>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-1">
+
+                    <div class="row">
+                        <div class="col-1"><b>Area:</b></div>
+                        <div class="col-10">
+                            <div id="areaFilter" class="form-inline">
+                                <!-- <div class="form-check mr-3">
+                                    <input class="form-check-input" type="checkbox" id="">
+                                    <label class="form-check-label" for="">US</label>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button class="btn btn-sm btn-secondary mr-4">Apply</button>
+                        <a id="clearFiltersBtn" class="btn btn-sm btn-outline-secondary mr-4">Clear All</a>
+                    </div>
+                </form>                
+            </div>
+
+            <!-- <div id="itemNumArea" class="d-none">Items: <span id="itemNum"><b>5</b></span></div> -->
+        </div>
+    </div>   
+
+    <div id="recTitle"></div>
+
+    <div id="loader"></div>
+
+    <div id="recipes" class="row row-cols-2 row-cols-md-4 mt-2"></div>
+</div>
+
+
+<!-- No result part-------------------------------------->
+<div id="noResults" class="text-center"></div>
+
+
+<!-- recipe detail -------------------------------------->
+<div id="recipeDetail" class="row justify-content-center mt-2"></div>
+
+
+
+
+
+{% endblock %}
+
+
+
