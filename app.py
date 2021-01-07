@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, request, flash, redirect, session, g, jsonify, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
-from forms import UserAddForm, LoginForm, RecipeForm, MealPlanForm
+from forms import UserAddForm, LoginForm
 from models import db, connect_db, User, DiyRecipe, Likes, MealPlan
 import requests
 
@@ -169,51 +169,52 @@ def show_likes():
 # routes for DIY recipes =============================================
 @app.route('/diy_recipes')
 def list_diy_recipes():
-    """Show all the user's DIY recipes"""
+    """get all the user's DIY recipes"""
 
     if not g.user:
         flash("Please sign up or login first!", "danger")
         return redirect(url_for('homepage'))
 
-    recipes = DiyRecipe.query.all()
-
-    return render_template('diy_recipes/show_all.html', recipes=recipes)
+    diyRecipes = g.user.own_recipes
+    diyRecipeList = [rec.serialize() for rec in diyRecipes]
+    
+    return jsonify(diyRecipes=diyRecipeList)
 
 
 @app.route('/diy_recipes/<int:diy_recipe_id>')
 def show_recipe_detail(diy_recipe_id):
-    """Show detail of a DIY recipe"""
+    """get the DIY recipe with perticular id"""
 
     recipe = DiyRecipe.query.get_or_404(diy_recipe_id)
 
-    return render_template('diy_recipes/detail.html', recipe=recipe)
+    return jsonify(diy_recipe=recipe.serialize())
 
 
-@app.route('/diy_recipes/new', methods=["GET", "POST"])
+@app.route('/diy_recipes/new', methods=['POST'])
 def add_diy_recipe():
     """Add new DIY recipe"""
-
+    
     if not g.user:
         flash("Please sign up or login first!", "danger")
         return redirect(url_for('homepage'))
 
-    form = RecipeForm()
+    name = request.json["name"]
+    img_url = request.json["imgURL"]
+    ingredients = request.json["ingredients"]
+    description = request.json["description"]
+    
+    diy_recipe = DiyRecipe(name=name, 
+                           ingredients=ingredients,
+                           description=description, 
+                           image_url=img_url,
+                           user_id=g.user.id
+                           )
+    # don't forget "user_id=g.user.id" !!!!
 
-    if form.validate_on_submit():
-        recipe = DiyRecipe(
-            name=form.name.data,
-            ingredients=form.ingredients.data,
-            description=form.description.data,
-            image_url=form.image_url.data or None,
-        )
+    db.session.add(diy_recipe)
+    db.session.commit()
 
-        # db.session.add(recipe)
-        g.user.own_recipes.append(recipe)
-        db.session.commit()
-
-        return redirect(url_for('list_diy_recipes'))
-
-    return render_template('diy_recipes/new.html', form=form)
+    return jsonify(diy_recipe=diy_recipe.serialize())
 
 
 @app.route('/diy_recipes/<int:diy_recipe_id>/edit', methods=["GET", "POST"])
@@ -225,20 +226,15 @@ def edit_diy_recipe(diy_recipe_id):
         return redirect(url_for('homepage'))
 
     recipe = DiyRecipe.query.get_or_404(diy_recipe_id)
-    form = RecipeForm(obj=recipe)
 
-    if form.validate_on_submit():
-        recipe.name = form.name.data,
-        recipe.ingredients = form.ingredients.data,
-        recipe.description = form.description.data,
-        recipe.image_url = form.image_url.data or None,
+    recipe.name = request.json["name"]
+    recipe.ingredients = request.json["ingredients"]
+    recipe.description = request.json["description"]
+    recipe.image_url = request.json["imgURL"]
 
-        db.session.commit()
+    db.session.commit()
 
-        flash(f"{recipe.name} updated.", "success")
-        return redirect(url_for('show_recipe_detail', diy_recipe_id=recipe.id))
-    else:
-        return render_template("diy_recipes/edit.html", form=form, recipe=recipe)
+    return jsonify(diy_recipe=recipe.serialize())
 
 
 @app.route('/diy_recipes/<int:diy_recipe_id>/delete', methods=["POST"])
@@ -253,32 +249,18 @@ def delete_diy_recipe(diy_recipe_id):
 
     if recipe.user_id != g.user.id:
         flash("Access unauthorized.", "danger")
-        return redirect(url_for('list_diy_recipes'))
+        return redirect(url_for('homepage'))
 
     db.session.delete(recipe)
     db.session.commit()
 
-    flash("Recipe Deleted.", "success")
-    return redirect(url_for('list_diy_recipes'))
+    # flash("Recipe Deleted.", "success")
+    return jsonify(result="deleted")
 
 
-#  routes for food and meal recipes ======================================
+#  routes for API recipes ======================================
 
-@app.route('/meals/categories')
-def show_meal_categories():
-    """Show all the meal categories"""       
-    
-    return render_template("meals/categories.html")
-
- 
-@app.route('/meals/recipes')
-def show_meal_recipes():
-    """Show all the meal recipes"""       
-    
-    return render_template("meals/recipes.html")
-
-
-@app.route('/meals/recipes/<int:rec_id>/check-if-like')
+@app.route('/meals/<int:rec_id>/check-if-like')
 def check_if_like(rec_id):
     """Check if the recipe is liked by current user"""
 
@@ -297,7 +279,7 @@ def check_if_like(rec_id):
 
 
 
-@app.route('/meals/recipes/<int:rec_id>/like', methods=['POST'])
+@app.route('/meals/<int:rec_id>/like', methods=['POST'])
 def toggle_like(rec_id):
     """Toggle a like for the current user"""
 
@@ -321,7 +303,76 @@ def toggle_like(rec_id):
         return jsonify({"result": "like"})
 
 
+#  routes for Meal Plan ======================================
 
+@app.route('/mealplan')
+def get_mealplan_data():
+    """ Get the data of My Meal Plan"""
+
+    if not g.user:
+        flash("Please sign up or login first!", "danger")
+        return redirect(url_for('homepage'))
+
+    meal_plan = g.user.meal_plan
+    meal_plan_list = [mp.serialize() for mp in meal_plan]
+
+    return jsonify(meal_plan_list=meal_plan_list)
+
+
+
+@app.route('/mealplan', methods=["POST"])
+def add_to_mealplan():
+    """ Add the recipe to My Meal Plan"""
+
+    if not g.user:
+        flash("Please sign up or login first!", "danger")
+        return redirect(url_for('homepage'))
+
+    day = request.json["day"]
+    meal_type = request.json["mealType"]
+    meal_id = request.json["mealId"]
+
+    mp = MealPlan.query.filter(
+        MealPlan.day == day,
+        MealPlan.meal_type == meal_type,
+        MealPlan.meal_id == meal_id
+    ).all()
+
+    if not mp: 
+        meal_plan = MealPlan(
+            day=day,
+            meal_type=meal_type,
+            meal_id=meal_id,
+            user_id=g.user.id
+        )
+    
+        db.session.add(meal_plan)
+        db.session.commit()
+
+        return jsonify({"result": "meal added"})
+
+    return jsonify({"result": "duplicated addition"}) 
+
+
+@app.route('/mealplan/<int:mpid>/delete', methods=["POST"])
+def delete_from_mealplan(mpid):
+    """ Delete a recipe from My Meal Plan"""
+
+    if not g.user:
+        flash("Please sign up or login first!", "danger")
+        return redirect(url_for('homepage'))
+
+    meal = MealPlan.query.get_or_404(mpid)
+   
+    if meal.user_id != g.user.id:
+        flash("Access unauthorized.", "danger")
+        return redirect(url_for('homepage'))
+
+    db.session.delete(meal)
+    db.session.commit()
+
+    return jsonify(result="deleted")
+   
 
 
 ##############################################################################

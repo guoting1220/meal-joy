@@ -1,15 +1,5 @@
 {% extends 'base.html' %}
 
-{% block style %}
-body {
-background-image: url("/static/images/food-blk.png");
-background-repeat: no-repeat;
-background-attachment: fixed;
-background-position: right;
-background-size:contain;
-}
-{% endblock %}
-
 {% block content %}
 
 <div class="row mt-5">
@@ -23,7 +13,7 @@ background-size:contain;
                 {{ field(placeholder=field.label.text, class_="form-control") }}
 
                 {% for error in field.errors %}
-                <span class="text-danger">{{ error }}</span>
+                <p class="text-danger">{{ error }}</p>
                 {% endfor %}
             {% endfor %}
 

@@ -120,6 +120,17 @@ class DiyRecipe(db.Model):
 
     # user = db.relationship('User', backref='diy_cecipes')
 
+    def serialize(self):
+        """ return a dict representation of DIY recipe which we can turn into JSON """
+
+        return {
+            "id": self.id,
+            "name": self.name,
+            "ingredients": self.ingredients,
+            "description": self.description,
+            "image_url": self.image_url
+        }
+
 
 # Model for Likes (user's favorite meal recipe) =======================
 
@@ -166,15 +177,25 @@ class MealPlan(db.Model):
         nullable=False
     )
 
-    meal_name = db.Column(
+    meal_id = db.Column(
         db.Text,
         nullable=False
     )
 
     user_id = db.Column(
-        db.Integer,
+        db.Integer, 
         db.ForeignKey('app_user.id', ondelete='cascade')
     )
+
+    def serialize(self):
+        """ return a dict representation of Meal Plan which we can turn into JSON """
+
+        return {
+            "id": self.id,
+            "day": self.day,
+            "meal_type": self.meal_type,
+            "meal_id": self.meal_id
+        }
 
    
 

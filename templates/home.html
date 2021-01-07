@@ -2,54 +2,42 @@
 
 {% block content %}
 
-{% if not g.user %}
-<div id="welcome" class="justify-content-center">
-    <div class="text-center p-5">
-        <h2 class="display-5">Explore The Healthy Recipes</h2>
-        <h2 class="display-5">and</h2>
-        <h2 class="display-5">Make Your Meal Plan</h2>
-        <hr class="my-4">
-
-        <div id="welcomeBtn" class="justify-content-center mt-5">
-            <div class="welcomeBtn">
-                <a href="/signup" class="btn btn-light rounded mt-5 mb-3">
-                    <i class="fas fa-user-plus mr-2"></i>Sign up
-                </a>
-            </div>
-            <div class="welcomeBtn">
-                <a href="/login" class="btn btn-light rounded">
-                    <i class="fas fa-sign-in-alt mr-3"></i>Log in
-                </a>
-            </div>
-        </div>
-
-    </div>
-</div>
-{% endif %}
-
-{% if g.user %}
-<!-- homepage -->
+<!-- homepage ------------------------------------------------------------------------------->
 <div id="home" class="row mt-5">
     <div class="col-6 offset-1 align-self-center">
-        <div class="jumbotron  text-center">
-            <h1 class="display-4">Welcome!</h1>
-            <p class="lead">Build your weekly meal plan and make the life easier!</p>
+        <div id="welcome" class="jumbotron  text-center">
+            {% if g.user %}
+            <p class="display-3">Welcome!</p>
+            {% endif %}
+            <h2>Explore The Healthy Recipes and Make Your Meal Plan</h2>
             <hr class="my-4">
-            <p>Explore the recipes ...</p>
-            <a class="btn  btn-lg" href="#" role="button"><img id="home-search" src="/static/images/frame.png" width="100px" alt=""></a>
+
+            {% if g.user %}
+            <a class="btn  btn-lg mx-4" href="#" role="button"><img id="gotoRecipes" src="/static/images/logo-recipes.png" width="100px"
+                    alt=""></a>
+            <a class="btn  btn-lg mx-4" href="#" role="button"><img id="gotoMealPlan" src="/static/images/myplan.png" width="100px" alt=""></a>
+            {% endif %}
+
+            {% if not g.user %}
+            <a class="btn  btn-lg mx-4" href="/signup" role="button"><img id="signup" src="/static/images/signupLogo.png"
+                    width="100px" alt=""></a>
+            <a class="btn  btn-lg mx-4" href="/login" role="button"><img id="login" src="/static/images/loginLogo.png" width="100px"
+                    alt=""></a>
+            {% endif %}
         </div>
     </div>
 </div>
-{% endif %}
 
-<!-- category list----------------------------------->
+
+<!-- category list---------------------------------------------------------------------------->
 <div id="cat-list" class="row justify-content-center"></div>
 
-<!-- recipe area---------------------------------------- -->
+
+<!-- recipe area--------------------------------------------------------------------------- -->
 <div id="recipesArea" class="d-none">
     <div id="recipesSearchArea">
         <div>
-            <h3 class="text-center">RECIPES</h3>
+            <h3 class="text-center title">RECIPES</h3>
             <div class="row justify-content-center">
                 <div class="col-5">
                     <form id="searchForm" action="">
@@ -104,7 +92,7 @@
         </div>
     </div>   
 
-    <div id="recTitle"></div>
+    <div id="recTitle" class="title"></div>
 
     <div id="loader"></div>
 
@@ -112,14 +100,66 @@
 </div>
 
 
-<!-- No result part-------------------------------------->
+<!-- No result part---------------------------------------------------------------------->
 <div id="noResults" class="text-center"></div>
 
 
-<!-- recipe detail -------------------------------------->
+<!-- recipe detail ---------------------------------------------------------------------->
 <div id="recipeDetail" class="row justify-content-center mt-2"></div>
 
 
+<!-- DIY recipe list------------------------------------------------------------------------->
+<div id="diyRecipes" class="title d-none">
+    <h3 class="text-center">MY OWN RECIPES</h3>    
+    <div class="text-center my-3">
+        <a id="addDiyBtn" class="btn btn-info">Add New DIY Recipe</a>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <ul id="diy-list" class="list-group"></ul>
+        </div>
+    </div>
+</div>
+
+<!-- Add/edit DIY Recipe form -------------------------------------------------------------->
+<div id="addOrEditDiy" class="d-none">
+    <h2 id="diy-form-title" class="text-center">Add New DIY Recipe</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="" id="addNewDiyForm">  
+                <div class="form-group">
+                    <label for="recName"><b>Recipe Name</b></label>
+                    <input type="text" class="form-control" id="recName" name="recName" placeholder="Name of the recipe" required>
+                </div> 
+                <div class="form-group">
+                    <label for="imgURL"><b>Image</b></label>
+                    <input class="form-control" id="imgURL" name="imgURL" placeholder="Image URL for the recipe (optional)">
+                </div>
+                <div class="form-group">
+                    <label for="recIngredients"><b>Ingredients</b></label>
+                    <textarea class="form-control" id="recIngredients" name="recIngredients" placeholder="The ingredients needed for the recipe" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="recDescription"><b>Description</b></label>
+                    <textarea type="text" class="form-control" id="recDescription" placeholder="Cooking instructions" rows="5"></textarea>
+                </div> 
+                <input type="text" hidden id="diy-rec-id">
+                <div class="form-group text-center">
+                    <span id="noSubmitBtn" class="back-to-diy-list btn btn-secondary ">Back</span>
+                    <button id="submitNewDiyBtn" class="btn btn-success">Submit</button>
+                    <button id="submitEditDiyBtn" class="btn btn-success">Submit</button>
+                </div>                 
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- DIY recipe detail ---------------------------------------------------------------------->
+<div id="diyRecipeDetail" class="row justify-content-center mt-2"></div>
+
+<!-- meal plan ---------------------------------------------------------------------->
+<div id="mealPlan"></div>
 
 
 

@@ -17,36 +17,36 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[Length(min=6)])
 
 
-class RecipeForm(FlaskForm):
-    """Form for adding/editing diy recipes."""
-    name = StringField('Recipe Name', validators=[DataRequired()])
-    ingredients = StringField('Ingredients', validators=[DataRequired()])
-    description = TextAreaField('Description', validators=[DataRequired()])
-    image_url = StringField('Image URL (Optional)', validators=[Optional()])
+# class RecipeForm(FlaskForm):
+#     """Form for adding/editing diy recipes."""
+#     name = StringField('Recipe Name', validators=[DataRequired()])
+#     ingredients = StringField('Ingredients', validators=[DataRequired()])
+#     description = TextAreaField('Description', validators=[DataRequired()])
+#     image_url = StringField('Image URL (Optional)', validators=[Optional()])
 
 
-class MealPlanForm(FlaskForm):
-    """Form for adding/editing meal plan."""
-    day = SelectField('Day of the Week',
-                      choices=[('sun', 'Sun'),
-                               ('mon', 'Mon'),
-                               ('tue', 'Tue'),
-                               ('wed', 'Wed'),
-                               ('thur', 'Thur'),
-                               ('fri', 'Fri'),
-                               ('sat', 'Sat')
-                               ],
-                      validators=[DataRequired()]
-                      )
-    meal_type = SelectField('Meal Time',
-                            choices=[('breakfast', 'Breakfast'),
-                                     ('lunch', 'Lunch'),
-                                     ('dinner', 'Dinner'),
-                                     ('dessert', 'Dessert')
-                                    ],
-                            validators=[DataRequired()]
-                            )
-    meal_name = StringField('Meal Name', validators=[DataRequired()])
+# class MealPlanForm(FlaskForm):
+#     """Form for adding/editing meal plan."""
+#     day = SelectField('Day of the Week',
+#                       choices=[('sun', 'Sun'),
+#                                ('mon', 'Mon'),
+#                                ('tue', 'Tue'),
+#                                ('wed', 'Wed'),
+#                                ('thur', 'Thur'),
+#                                ('fri', 'Fri'),
+#                                ('sat', 'Sat')
+#                                ],
+#                       validators=[DataRequired()]
+#                       )
+#     meal_type = SelectField('Meal Time',
+#                             choices=[('breakfast', 'Breakfast'),
+#                                      ('lunch', 'Lunch'),
+#                                      ('dinner', 'Dinner'),
+#                                      ('dessert', 'Dessert')
+#                                     ],
+#                             validators=[DataRequired()]
+#                             )
+#     meal_name = StringField('Meal Name', validators=[DataRequired()])
 
     
 
