@@ -173,7 +173,7 @@ $(async function () {
     // *************************************************
     // check if the recipe is liked by current user
     async function isLiked(rec_id) {
-        const response = await axios.get(`${LOCAL_HOST}/meals/${rec_id}/check-if-like`);
+        const response = await axios.get(`/meals/${rec_id}/check-if-like`);
         // const response = await axios.get(`/meals/${rec_id}/check-if-like`);
 
         if (response.data.result === "like") {
@@ -234,7 +234,7 @@ $(async function () {
     // ************************************************
     // get liked recipes
     async function getLikedRecipes() {
-        const response = await axios.get(`${LOCAL_HOST}/user/likes`);
+        const response = await axios.get(`/user/likes`);
         const likedMealIds = response.data.likedMealIds;
         const likedRecipes = [];
         for (let rec_id of likedMealIds) {
@@ -535,7 +535,7 @@ $(async function () {
     // ************************************************
     // get DIY recipes from database
     async function getDiyList() {
-        const response = await axios.get(`${LOCAL_HOST}/diy_recipes`);
+        const response = await axios.get(`/diy_recipes`);
         return response.data.diyRecipes;        
     }
 
@@ -543,7 +543,7 @@ $(async function () {
     // ************************************************
     // get a DIY recipe by ID
     async function getDiyRecById(id) {
-        const response = await axios.get(`${LOCAL_HOST}/diy_recipes/${id}`);
+        const response = await axios.get(`/diy_recipes/${id}`);
         return response.data.diy_recipe;
     }
 
@@ -676,7 +676,7 @@ $(async function () {
     // *************************************************
     // fetch the Meal Plan data and show the filled Meal Plan table
     async function fillMealPlanTable(){
-        const res = await axios.get(`${LOCAL_HOST}/mealplan`);
+        const res = await axios.get(`/mealplan`);
         const mealPlan = res.data.meal_plan_list;
         let cellId;
         let mealId;
@@ -877,7 +877,7 @@ $(async function () {
     $recipesContainer.on('click', '.diyDelete', async function(e){       
         if (confirm("Are you sure to delete?")) {
             const diyRecId = $(e.target).parent().data('recid');
-            await axios.post(`${LOCAL_HOST}/diy_recipes/${diyRecId}/delete`)
+            await axios.post(`/diy_recipes/${diyRecId}/delete`)
             cleanUp();
             show($diyRecipes);
             await showDiyRecipes();
@@ -1019,7 +1019,7 @@ $(async function () {
     // handle the like/unlike 
     $recipesContainer.on('click', '.like', async function(e){
         const rec_id = $(e.target).data('recid');
-        await axios.post(`${LOCAL_HOST}/meals/${rec_id}/like`);    
+        await axios.post(`/meals/${rec_id}/like`);    
         $(e.target).toggleClass('fas far');
     })
 
@@ -1037,7 +1037,7 @@ $(async function () {
         const imgURL = $imgURL.val();
         const ingredients = $recIngredients.val();
         const description = $recDescription.val();
-        await axios.post(`${LOCAL_HOST}/diy_recipes/new`, {
+        await axios.post(`/diy_recipes/new`, {
             name,
             imgURL,
             ingredients,
@@ -1055,7 +1055,7 @@ $(async function () {
         const imgURL = $imgURL.val();
         const ingredients = $recIngredients.val();
         const description = $recDescription.val();
-        await axios.post(`${LOCAL_HOST}/diy_recipes/${$("#diy-rec-id").val()}/edit`, {
+        await axios.post(`/diy_recipes/${$("#diy-rec-id").val()}/edit`, {
             name,
             imgURL,
             ingredients,
@@ -1086,7 +1086,7 @@ $(async function () {
     // handle showing edit DIY recipe form
     $diyRecipeDetail.on('click', '.editDiyBtn', async function(e){
         const diyRecId = $(e.target).parent().data('recid');        
-        const res = await axios.get(`${LOCAL_HOST}/diy_recipes/${diyRecId}`)
+        const res = await axios.get(`/diy_recipes/${diyRecId}`)
         const diyRec = res.data.diy_recipe;
         showEditDiyForm();
         $recName.val(diyRec.name);
@@ -1106,7 +1106,7 @@ $(async function () {
         const mealType = $("#mealType").val();
         const mealId = $("#mealId").val(); 
 
-        await axios.post(`${LOCAL_HOST}/mealplan`, {    
+        await axios.post(`/mealplan`, {    
             day,
             mealType,
             mealId
@@ -1142,7 +1142,7 @@ $(async function () {
     $mealPlan.on('click', '.deleteMealOnPlanBtn', async function(e){
         if (confirm("Are you sure to delete?")) {
             const mealPlanId = $(e.target).next().data("mealplanid");
-            await axios.post(`${LOCAL_HOST}/mealplan/${mealPlanId}/delete`);       
+            await axios.post(`/mealplan/${mealPlanId}/delete`);       
             $(`#mp-${mealPlanId}`).remove();  
         }        
     })
