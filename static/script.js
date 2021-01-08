@@ -927,9 +927,9 @@ $(async function () {
 
 
     // *************************************************
-    // handle the recipe search form 
-    $("#searchForm").on('click', 'button', async function(e){
-        // e.preventDefault();        
+    // handle the recipe search form button
+    $("#searchForm").on('submit', async function(e){
+        e.preventDefault();        
 
         const name = $searchInput.val();
         if (name === "") return;       
@@ -952,6 +952,16 @@ $(async function () {
         } 
         searchedResults = meals;
     })
+
+
+    // *************************************************
+    // handle pressing the enter key to show the search result
+    // $searchInput.on('keyup', function(e) {
+    //     e.preventDefault();
+    //     if (e.keyCode === 13) {             
+    //         $("#searchBtn").click();
+    //     }
+    // })
 
 
     //**************************************************
