@@ -20,7 +20,7 @@ background-size:contain;
             {{ form.hidden_tag() }}
 
             {% for field in form if field.widget.input_type != 'hidden' %}
-            <b>{{field.label}}</b>
+            <b class="d-block mt-4">{{field.label}}</b>
             {{ field(placeholder=field.label.text, class="form-control") }}
 
             {% for error in field.errors %}

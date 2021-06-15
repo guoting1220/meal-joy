@@ -3,29 +3,31 @@
 {% block content %}
 
 <!-- homepage ------------------------------------------------------------------------------->
-<div id="home" class="row mt-5">
-    <div class="col-6 offset-1 align-self-center">
-        <div id="welcome" class="jumbotron  text-center">
-            {% if g.user %}
-            <p class="display-3">Welcome!</p>
-            {% endif %}
-            <h2>Explore The Healthy Recipes and Make Your Meal Plan</h2>
-            <hr class="my-4">
+<div id="home" class="row">
+  <div class="col-8  mx-auto d-flex align-items-center vh-100">
+    <div id="welcome" class="jumbotron  text-center">
+      {% if g.user %}
+      <h2 class="font-weight-bold">Welcome to Meal Joy!</h2>
+      {% endif %}
+      <br>
+      <h2>Explore The Healthy Recipes and Make Your Meal Plan</h2>
+      <hr class="my-4">
 
-            {% if g.user %}
-            <a class="btn  btn-lg mx-4" href="#" role="button"><img id="gotoRecipes" src="/static/images/logo-recipes.png" width="100px"
-                    alt=""></a>
-            <a class="btn  btn-lg mx-4" href="#" role="button"><img id="gotoMealPlan" src="/static/images/myplan.png" width="100px" alt=""></a>
-            {% endif %}
+      {% if g.user %}
+      <a class="btn  btn-lg mx-4" href="#" role="button"><img id="gotoRecipes" src="/static/images/logo-recipes.png"
+          width="100px" alt=""></a>
+      <a class="btn  btn-lg mx-4" href="#" role="button"><img id="gotoMealPlan" src="/static/images/myplan.png"
+          width="100px" alt=""></a>
+      {% endif %}
 
-            {% if not g.user %}
-            <a class="btn  btn-lg mx-4" href="/signup" role="button"><img id="signup" src="/static/images/signupLogo.png"
-                    width="100px" alt=""></a>
-            <a class="btn  btn-lg mx-4" href="/login" role="button"><img id="login" src="/static/images/loginLogo.png" width="100px"
-                    alt=""></a>
-            {% endif %}
-        </div>
+      {% if not g.user %}
+      <a class="btn  btn-lg mx-4" href="/signup" role="button"><img id="signup" src="/static/images/signupLogo.png"
+          width="100px" alt=""></a>
+      <a class="btn  btn-lg mx-4" href="/login" role="button"><img id="login" src="/static/images/loginLogo.png"
+          width="100px" alt=""></a>
+      {% endif %}
     </div>
+  </div>
 </div>
 
 
@@ -35,68 +37,72 @@
 
 <!-- recipe area--------------------------------------------------------------------------- -->
 <div id="recipesArea" class="d-none">
-    <div id="recipesSearchArea">
-        <div>
-            <h3 class="text-center title">RECIPES</h3>
-            <div class="row justify-content-center">
-                <div class="col-5">
-                    <form id="searchForm" action="">
-                        <div class="input-group mb-3">
-                            <input type="text" name="rSearch" id="rSearch" class="form-control text-center" placeholder="Key word of the recipe">
-                            <div class="input-group-append">
-                                <button id="searchBtn" class="btn btn-info">Search</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+  <div id="recipesSearchArea">
+    <div>
+      <h3 class="text-center title">RECIPES</h3>
+      <div class="row justify-content-center">
+        <div class="col-5">
+          <form id="searchForm" action="">
+            <div class="input-group mb-3">
+              <input type="text" name="rSearch" id="rSearch" class="form-control text-center"
+                placeholder="Key word of the recipe">
+              <div class="input-group-append">
+                <button id="searchBtn" class="btn btn-info">Search</button>
+              </div>
             </div>
+          </form>
         </div>
+      </div>
+    </div>
 
-        <div id="filterArea">
-            <button id="filterByBtn" class="btn btn-sm btn-outline-secondary">Filter By <i class="fas fa-caret-down"></i></button>
+    <div id="filterArea">
+      <button id="filterByBtn" class="btn btn-sm btn-secondary">Filter By <i class="fas fa-caret-down"></i></button>
 
-            <div id="filters" class="my-2 p-2 d-none">
-                <form id="filterForm" action="">
-                    <div class="row">
-                        <div class="col-1"><b>Category:</b></div>
-                        <div class="col-11">
-                            <div id="catFilter" class="form-inline">
-                                <!-- <div class="form-check mr-3">
+      <div id="filters" class="my-2 p-2 d-none">
+        <form id="filterForm" action="">
+          <div class="row">
+            <div class="col-1"><b>Category:</b></div>
+            <div class="col-11">
+              <div id="catFilter" class="form-inline">
+                <!-- <div class="form-check mr-3">
                                     <input class="form-check-input" type="checkbox" id="">
                                     <label class="form-check-label" for="">beef</label>
                                 </div> -->
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="my-1">
+              </div>
+            </div>
+          </div>
+          <hr class="my-1">
 
-                    <div class="row">
-                        <div class="col-1"><b>Area:</b></div>
-                        <div class="col-10">
-                            <div id="areaFilter" class="form-inline">
-                                <!-- <div class="form-check mr-3">
+          <div class="row">
+            <div class="col-1"><b>Area:</b></div>
+            <div class="col-10">
+              <div id="areaFilter" class="form-inline">
+                <!-- <div class="form-check mr-3">
                                     <input class="form-check-input" type="checkbox" id="">
                                     <label class="form-check-label" for="">US</label>
                                 </div> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <button class="btn btn-sm btn-secondary mr-4">Apply</button>
-                        <a id="clearFiltersBtn" class="btn btn-sm btn-outline-secondary mr-4">Clear All</a>
-                    </div>
-                </form>                
+              </div>
             </div>
+          </div>
+          <div class="text-right">
+            <button class="btn btn-sm btn-secondary mr-4">Apply</button>
+            <a id="clearFiltersBtn" class="btn btn-sm btn-outline-secondary mr-4">Clear All</a>
+          </div>
+        </form>
+      </div>
 
-            <!-- <div id="itemNumArea" class="d-none">Items: <span id="itemNum"><b>5</b></span></div> -->
-        </div>
-    </div>   
+      <!-- <div id="itemNumArea" class="d-none">Items: <span id="itemNum"><b>5</b></span></div> -->
+    </div>
+  </div>
 
-    <div id="recTitle" class="title"></div>
+  <div id="recTitle" class="title"></div>
+  <span id="recExploreBtn" class="btn text-white font-weight-bold ml-3 text-center">
+    Explore More ...
+  </span>
 
-    <div id="loader"></div>
+  <div id="loader"></div>
 
-    <div id="recipes" class="row row-cols-2 row-cols-md-4 mt-2"></div>
+  <div id="recipes" class="row row-cols-2 row-cols-md-4 mt-2"></div>
 </div>
 
 
@@ -110,49 +116,51 @@
 
 <!-- DIY recipe list------------------------------------------------------------------------->
 <div id="diyRecipes" class="title d-none">
-    <h3 class="text-center">MY OWN RECIPES</h3>    
-    <div class="text-center my-3">
-        <a id="addDiyBtn" class="btn btn-info">Add New DIY Recipe</a>
+  <h3 class="text-center">MY OWN RECIPES</h3>
+  <div class="text-center my-3">
+    <a id="addDiyBtn" class="btn btn-info">Add New DIY Recipe</a>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <ul id="diy-list" class="list-group"></ul>
     </div>
-    
-    <div class="row justify-content-center">
-        <div class="col-6">
-            <ul id="diy-list" class="list-group"></ul>
-        </div>
-    </div>
+  </div>
 </div>
 
 <!-- Add/edit DIY Recipe form -------------------------------------------------------------->
 <div id="addOrEditDiy" class="d-none">
-    <h2 id="diy-form-title" class="text-center">Add New DIY Recipe</h2>
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form action="" id="addNewDiyForm">  
-                <div class="form-group">
-                    <label for="recName"><b>Recipe Name</b></label>
-                    <input type="text" class="form-control" id="recName" name="recName" placeholder="Name of the recipe" required>
-                </div> 
-                <div class="form-group">
-                    <label for="imgURL"><b>Image</b></label>
-                    <input class="form-control" id="imgURL" name="imgURL" placeholder="Image URL for the recipe (optional)">
-                </div>
-                <div class="form-group">
-                    <label for="recIngredients"><b>Ingredients</b></label>
-                    <textarea class="form-control" id="recIngredients" name="recIngredients" placeholder="The ingredients needed for the recipe" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="recDescription"><b>Description</b></label>
-                    <textarea type="text" class="form-control" id="recDescription" placeholder="Cooking instructions" rows="5"></textarea>
-                </div> 
-                <input type="text" hidden id="diy-rec-id">
-                <div class="form-group text-center">
-                    <span id="noSubmitBtn" class="back-to-diy-list btn btn-secondary ">Back</span>
-                    <button id="submitNewDiyBtn" class="btn btn-success">Submit</button>
-                    <button id="submitEditDiyBtn" class="btn btn-success">Submit</button>
-                </div>                 
-            </form>
+  <h2 id="diy-form-title" class="text-center">Add New DIY Recipe</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form action="" id="addNewDiyForm">
+        <div class="form-group">
+          <label for="recName"><b>Recipe Name</b></label>
+          <input type="text" class="form-control" id="recName" name="recName" placeholder="Name of the recipe" required>
         </div>
+        <div class="form-group">
+          <label for="imgURL"><b>Image</b></label>
+          <input class="form-control" id="imgURL" name="imgURL" placeholder="Image URL for the recipe (optional)">
+        </div>
+        <div class="form-group">
+          <label for="recIngredients"><b>Ingredients</b></label>
+          <textarea class="form-control" id="recIngredients" name="recIngredients"
+            placeholder="The ingredients needed for the recipe" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="recDescription"><b>Description</b></label>
+          <textarea type="text" class="form-control" id="recDescription" placeholder="Cooking instructions"
+            rows="5"></textarea>
+        </div>
+        <input type="text" hidden id="diy-rec-id">
+        <div class="form-group text-center">
+          <span id="noSubmitBtn" class="back-to-diy-list btn btn-secondary ">Back</span>
+          <button id="submitNewDiyBtn" class="btn btn-success">Submit</button>
+          <button id="submitEditDiyBtn" class="btn btn-success">Submit</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 
 <!-- DIY recipe detail ---------------------------------------------------------------------->
@@ -164,6 +172,3 @@
 
 
 {% endblock %}
-
-
-

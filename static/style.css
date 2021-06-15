@@ -20,6 +20,13 @@ body {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
 }
+/* 
+.navbar {
+    height: 40px;
+    position: relative;
+    background-color: yellow;
+    width:100%;
+} */
 
 #login {
   opacity: 0.65;
@@ -86,6 +93,13 @@ a {
   color: black;
 }
 
+.like {
+  cursor: pointer;
+}
+
+.meal-image {
+  cursor: pointer;
+}
 
 #loader {
   display: none;
