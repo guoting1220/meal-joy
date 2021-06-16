@@ -32,13 +32,18 @@ https://capstone-1-meal-plan.herokuapp.com
 HTML, CSS, Javascript, jQuery, Bootstrap
 
 ##### backend: 
-Python, Flask, SQL, PostgreSQL
+Python, Flask
+
+##### database: 
+SQL, PostgreSQL
 
 ### Installation and Setup Instructions
 
 ##### Create the Python virtual environment:
  `python3 -m venv venv`
+
  `source venv/bin/activate`
+ 
  (venv)`pip install -r requirements.txt`
 
 ##### Set up the database:
