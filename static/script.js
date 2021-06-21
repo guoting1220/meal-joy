@@ -645,7 +645,7 @@ $(async function () {
   function drawMealPlanTable() {
     $(`
             <h3 class="title text-center">WEEKLY MEAL PLAN</h3>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center mt-4">
                 <div class="col-12 table-responsive">
                     <table id="mealPlanTable" class="table table-hover table-bordered table-sm table-fixed">
                         <thead class="thead-dark">

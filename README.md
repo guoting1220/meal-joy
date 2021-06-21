@@ -16,7 +16,7 @@ Logged in users can:
 - create DIY recipes by filling the DIY recipe form
 - edit or delete their DIY recipes
 - view all DIY recipes
-- On each recipe detail page (including DIY recipe), users can add current recipe to their weekly meal plan by clicking on the "Add to My Meal Plan" button and selecting the day of the week and the meal type (breakfast, luch, dinner or snack) 
+- On each recipe detail page (including DIY recipe), users can add current recipe to their weekly meal plan by clicking on the "Add to My Meal Plan" button and selecting the day of the week and the meal type (breakfast, lunch, dinner or snack) 
 - view the weekly meal plan table
 - delete the recipe on the meal plan table
 
@@ -32,7 +32,7 @@ https://capstone-1-meal-plan.herokuapp.com
 HTML, CSS, Javascript, jQuery, Bootstrap
 
 ##### backend: 
-Python, Flask
+Python, Flask, SQLAlchemy, Bcrypt, WTForms
 
 ##### database: 
 SQL, PostgreSQL
