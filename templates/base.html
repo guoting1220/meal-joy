@@ -16,15 +16,15 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <!-- <div class="container"> -->
-    <a class="navbar-brand mr-5 ml-5" href="/">
+    <a class="navbar-brand mx-5" href="/">
       <i class="fas fa-utensils"></i> Meal Joy
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
       aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse ml-5 d-flex justify-content-end" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
+    <div class="collapse navbar-collapse ml-5" id="navbarNavAltMarkup">
+      <ul class="navbar-nav">
         {% if g.user %}
         <li class="nav-item mr-3">
           <a class="nav-link" href="{{url_for('homepage')}}">Home <span class="sr-only">(current)</span></a>
@@ -44,27 +44,28 @@
         <li class="nav-item mr-3">
           <a id="mealPlanNav" class="nav-link" href="#meal-plan">My Meal Plan</a>
         </li>
-        {% endif %}  
-        
+        {% endif %}
+      </ul>
+      <ul class="nav navbar-nav ml-auto mr-3">
         {% if not g.user %}
         <li class="nav-item mr-3"><a class="nav-link" href="/signup">Sign up</a></li>
         <li class="nav-item mr-5"><a class="nav-link" href="/login">Log in</a></li>
         {% else %}
-        <li class="nav-item ml-5">
+        <li class="nav-item">
           <a class="nav-link" href="#">
-            <i class="far fa-user mx-1"></i>{{ g.user.username }}
+            <i class="far fa-user mr-1"></i>{{ g.user.username }}
           </a>
         </li>
         <li class="nav-item mr-5"><a class="nav-link" href="/logout">Log out</a></li>
         {% endif %}
-      </div>
+      </ul>
     </div>
 
     <!-- </div> -->
   </nav>
 
 
-  <div id="recipesContainer" class="container">
+  <div id="recipesContainer" class="container mt-3">
     {% for category, message in get_flashed_messages(with_categories=True) %}
     <div class="alert alert-{{ category }} text-center">{{ message }}</div>
     {% endfor %}
